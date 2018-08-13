@@ -5,4 +5,6 @@
     <string name="section_name">Section Name:</string>
     <string name="get">GET</string>
     <string name="empty_list_view">Nothing to show</string>
+    <string name="title">Title:</string>
+    <string name="shared_preferences_key">shared_preferences_key</string>
 </resources>

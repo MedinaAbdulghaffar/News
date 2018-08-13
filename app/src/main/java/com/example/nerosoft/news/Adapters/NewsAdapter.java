@@ -26,9 +26,9 @@ public class NewsAdapter extends ArrayAdapter {
 
     public NewsAdapter(@NonNull Context context, int resource, @NonNull ArrayList<News> newsArrayList) {
         super(context, resource, newsArrayList);
-        this.context=context;
-        this.resource=resource;
-        this.newsArrayList=newsArrayList;
+        this.context = context;
+        this.resource = resource;
+        this.newsArrayList = newsArrayList;
     }
 
     @NonNull
@@ -40,6 +40,7 @@ public class NewsAdapter extends ArrayAdapter {
             LayoutInflater layoutInflater = LayoutInflater.from(context);
             convertView = layoutInflater.inflate(resource, parent, false);
             placeHolder = new PlaceHolder();
+            placeHolder.title = convertView.findViewById(R.id.title_tv);
             placeHolder.author = convertView.findViewById(R.id.author_tv);
             placeHolder.sectionName = convertView.findViewById(R.id.section_name_tv);
             placeHolder.publicationDate = convertView.findViewById(R.id.publication_date_tv);
@@ -50,6 +51,7 @@ public class NewsAdapter extends ArrayAdapter {
         }
 
         News news = newsArrayList.get(position);
+        placeHolder.title.setText(news.getTitle());
         placeHolder.author.setText(news.getAuthor());
         placeHolder.sectionName.setText(news.getSectionName());
         placeHolder.publicationDate.setText(news.getPublicationDate());
@@ -63,6 +65,7 @@ public class NewsAdapter extends ArrayAdapter {
         TextView author;
         TextView sectionName;
         TextView publicationDate;
+        TextView title;
     }
 
 }

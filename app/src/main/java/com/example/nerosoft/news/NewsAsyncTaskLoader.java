@@ -1,7 +1,6 @@
 package com.example.nerosoft.news;
 
 import android.content.Context;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,12 +16,13 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class NewsAsyncTaskLoader extends android.support.v4.content.AsyncTaskLoader<ArrayList<News>> {
-    String urlString = "https://content.guardianapis.com/search?api-key=51e35a9b-f95b-41f3-af3a-f6e3c876d8df&show-fields=thumbnail,byline";
     public ArrayList<News> arrayListOfNews = new ArrayList<>();
+    String uriString;
 
-
-    public NewsAsyncTaskLoader(Context context) {
+    public NewsAsyncTaskLoader(Context context, String uriString) {
         super(context);
+        this.uriString=uriString;
+
     }
 
     @Override
@@ -36,7 +36,7 @@ public class NewsAsyncTaskLoader extends android.support.v4.content.AsyncTaskLoa
 
 
         try {
-            URL url = new URL(urlString);
+            URL url = new URL(uriString);
             httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setRequestMethod("GET");
             httpURLConnection.setConnectTimeout(10000);
@@ -65,6 +65,7 @@ public class NewsAsyncTaskLoader extends android.support.v4.content.AsyncTaskLoa
             String publicationDate = new String();
             String image = new String();
             String webUrl = new String();
+            String title = new String();
 
             for (int i = 0; i < results.length(); i++) {
 
@@ -89,7 +90,11 @@ public class NewsAsyncTaskLoader extends android.support.v4.content.AsyncTaskLoa
                 if (element.has("webUrl")) {
                     webUrl = element.getString("webUrl");
                 }
-                arrayListOfNews.add(new News(author, sectionName, publicationDate, image, webUrl));
+                if (element.has("webTitle")) {
+                    title = element.getString("webTitle");
+                }
+
+                arrayListOfNews.add(new News(author, sectionName, publicationDate, image, webUrl, title));
             }
 
         } catch (MalformedURLException e) {
@@ -103,4 +108,6 @@ public class NewsAsyncTaskLoader extends android.support.v4.content.AsyncTaskLoa
 
         return arrayListOfNews;
     }
+
+
 }
