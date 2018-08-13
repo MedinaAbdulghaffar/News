@@ -32,8 +32,8 @@ public class SettingsActivity extends AppCompatActivity {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.settings_main);
 
-            Preference location = findPreference(getString(R.string.shared_preferences_key));
-            bindPreferenceSummaryToValue(location);
+            Preference preference = findPreference(getString(R.string.shared_preferences_key));
+            bindPreferenceSummaryToValue(preference);
 
         }
 
@@ -42,7 +42,7 @@ public class SettingsActivity extends AppCompatActivity {
             String stringValue = newValue.toString();
             preference.setSummary(stringValue);
 
-            return false;
+            return true;
         }
 
 
